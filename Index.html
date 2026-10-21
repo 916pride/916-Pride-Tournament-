@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>916 Pride Tournament</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #080b12;
+  color: white;
+}
+
+header {
+  padding: 22px;
+  background: #111827;
+  border-bottom: 2px solid #00e5ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+  color: #00e5ff;
+}
+
+.hero {
+  text-align: center;
+  padding: 75px 20px;
+  background: radial-gradient(circle, #18304a, #080b12 75%);
+}
+
+.hero h1 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.hero h1 span {
+  color: #00e5ff;
+}
+
+.hero p {
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 14px 25px;
+  background: #00e5ff;
+  color: #07111c;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+section {
+  padding: 35px 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.card {
+  background: #131b29;
+  border: 1px solid #26374b;
+  padding: 24px;
+  border-radius: 14px;
+}
+
+.card h3 {
+  color: #00e5ff;
+  margin-bottom: 15px;
+}
+
+.card p {
+  margin: 10px 0;
+  color: #d1d5db;
+}
+
+.card button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 13px;
+  border: none;
+  border-radius: 7px;
+  background: #00e5ff;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+form {
+  max-width: 500px;
+  margin: auto;
+  background: #131b29;
+  padding: 22px;
+  border-radius: 12px;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  margin: 9px 0;
+  border: 1px solid #374151;
+  border-radius: 7px;
+  background: #080b12;
+  color: white;
+}
+
+form button {
+  width: 100%;
+  padding: 14px;
+  background: #00e5ff;
+  border: none;
+  border-radius: 7px;
+  font-weight: bold;
+}
+
+.note {
+  font-size: 13px;
+  color: #9ca3af;
+  margin-top: 12px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #9ca3af;
+  border-top: 1px solid #26374b;
+}
+
+@media (min-width: 600px) {
+  .hero h1 {
+    font-size: 52px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">916 PRIDE</div>
+  <div>FREE FIRE TOURNAMENT</div>
+</header>
+
+<div class="hero">
+  <h1>916 PRIDE <span>TOURNAMENT</span></h1>
+  <p>Play Together. Compete Hard. Become Champion.</p>
+  <p>India's Community Tournament Platform</p>
+  <a href="#tournaments" class="btn">EXPLORE TOURNAMENTS</a>
+</div>
+
+<section id="tournaments">
+  <h2>🏆 Upcoming Tournaments</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>🎮 Free Entry Match</h3>
+      <p>Entry Fee: FREE</p>
+      <p>Prize Pool: Announced Soon</p>
+      <p>Mode: Solo / Duo / Squad</p>
+      <button onclick="selectTournament('free')">
+        Register Now
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>🔥 Paid Entry Match</h3>
+      <p>Entry Fee: Set by Admin</p>
+      <p>Prize Pool: Announced Soon</p>
+      <p>Mode: Solo / Duo / Squad</p>
+      <button onclick="selectTournament('paid')">
+        Register Now
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<section id="registration">
+  <h2>📝 Player Registration</h2>
+
+  <form id="registrationForm">
+
+    <input id="playerName"
+      type="text"
+      placeholder="Player Name"
+      required>
+
+    <input id="gameUid"
+      type="text"
+      placeholder="Free Fire UID"
+      required>
+
+    <input id="phone"
+      type="tel"
+      placeholder="Phone Number"
+      required>
+
+    <input id="teamName"
+      type="text"
+      placeholder="Team Name (optional)">
+
+    <select id="mode" required>
+      <option value="">Select Mode</option>
+      <option value="Solo">Solo</option>
+      <option value="Duo">Duo</option>
+      <option value="Squad">Squad</option>
+    </select>
+
+    <select id="entryType" required>
+      <option value="">Select Entry Type</option>
+      <option value="free">Free Entry</option>
+      <option value="paid">Paid Entry</option>
+    </select>
+
+    <button type="submit">Submit Registration</button>
+
+    <p class="note">
+      Demo form only. Database connection is the next step.
+      Paid entry registration does not collect payment.
+    </p>
+
+  </form>
+</section>
+
+<footer>
+  <p>© 2026 916 Pride Tournament</p>
+  <p>Play Fair. Respect Every Player.</p>
+</footer>
+
+<script>
+function selectTournament(type) {
+  document.getElementById("entryType").value = type;
+  document.getElementById("registration").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+document.getElementById("registrationForm")
+.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  alert(
+    "Your demo form is working! Database connection is the next step."
+  );
+});
+</script>
+
+</body>
+</html>
