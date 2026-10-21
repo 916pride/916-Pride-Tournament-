@@ -256,20 +256,104 @@ footer {
 </footer>
 
 <script>
+const SUPABASE_URL = "https://qzonuaqrkfvfuhcbyovd.supabase.co";
+const SUPABASE_KEY = "sb_publishable_4B8dl1CGxmSZTx8JlJGxLg_l7T3ALNz";
+
+const TOURNAMENTS = {
+  free: "bf61a6d3-3d89-4186-a070-b9c7fb9cd0c6",
+  paid: "22d7c767-ce8d-4bb7-910e-c560435bfdd7"
+};
+
 function selectTournament(type) {
   document.getElementById("entryType").value = type;
+
   document.getElementById("registration").scrollIntoView({
     behavior: "smooth"
   });
 }
 
 document.getElementById("registrationForm")
-.addEventListener("submit", function(event) {
+.addEventListener("submit", async function(event) {
   event.preventDefault();
 
-  alert(
-    "Your demo form is working! Database connection is the next step."
-  );
+  const form = event.target;
+  const button = form.querySelector('button[type="submit"]');
+
+  button.disabled = true;
+  button.textContent = "Submitting...";
+
+  try {
+    const playerName =
+      document.getElementById("playerName").value.trim();
+
+    const gameUid =
+      document.getElementById("gameUid").value.trim();
+
+    const phone =
+      document.getElementById("phone").value.trim();
+
+    const teamName =
+      document.getElementById("teamName").value.trim();
+
+    const mode =
+      document.getElementById("mode").value;
+
+    const entryType =
+      document.getElementById("entryType").value;
+
+    if (!TOURNAMENTS[entryType]) {
+      throw new Error("Tournament select karo.");
+    }
+
+    if (
+      SUPABASE_URL === "YAHAN_APNA_PROJECT_URL" ||
+      SUPABASE_KEY === "YAHAN_APNI_PUBLISHABLE_KEY"
+    ) {
+      throw new Error("Pehle Supabase URL aur key set karo.");
+    }
+
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/registrations`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          tournament_id: TOURNAMENTS[entryType],
+          player_name: playerName,
+          free_fire_uid: gameUid,
+          phone: phone,
+          team_name: teamName || null,
+          mode: mode,
+          payment_status:
+            entryType === "free" ? "not_required" : "pending",
+          registration_status: "pending"
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(
+        error.message || "Registration save nahi hui."
+      );
+    }
+
+    alert("Registration successful! Welcome to 916 Pride.");
+    form.reset();
+
+  } catch (error) {
+    console.error(error);
+    alert("Error: " + error.message);
+
+  } finally {
+    button.disabled = false;
+    button.textContent = "Submit Registration";
+  }
 });
 </script>
 
